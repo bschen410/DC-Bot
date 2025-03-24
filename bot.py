@@ -1,7 +1,7 @@
 # 導入Discord.py模組
 import discord, asyncio, json
 from discord.ext import commands
-import motor_playwright
+import motor
 
 
 with open('config.json') as cf:
@@ -46,10 +46,9 @@ async def on_message(message):
 
 async def checkMotorData():
     while True:
-        result = await motor_playwright.getData()
+        result, location = await motor.getData(40, 46)
         if result:
-            result = "蘆洲監理站(新北市蘆洲區中山二路163號)：\n" + "\n".join(result)
-            # result = "基隆監理站(基隆市七堵區實踐路296號)：\n" + "\n".join(result)
+            result = location + "\n" + "\n".join(result)
             await bot.get_channel(1299427050884694028).send(result)
         await asyncio.sleep(60)
 
@@ -59,13 +58,13 @@ async def checkMotorData():
 async def check_motor_data(interaction: discord.Interaction):
     """檢查 Motor 資料，並在頻道中回覆"""
     await interaction.response.defer()  # 告訴用戶請求正在處理
-    result = await motor_playwright.getData()  # 假設 motor 模組有一個 getData 函數
+    result, location = await motor.getData(0, 46)  # 假設 motor 模組有一個 getData 函數
     if result:
-        result = "蘆洲監理站(新北市蘆洲區中山二路163號)：\n" + "\n".join(result)
+        result = location + "\n" + "\n".join(result)
         await interaction.followup.send(result)
     else:
         await interaction.followup.send(
-            "蘆洲監理站(新北市蘆洲區中山二路163號)：\n目前沒有可用的資料。"
+            location + "\n目前沒有可用的資料。"
         )
 
 
