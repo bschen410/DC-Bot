@@ -1,5 +1,5 @@
-import datetime
-
-today = datetime.date.today()
-print(today.strftime("%Y%m%d"))
-print("114" + datetime.date.today().strftime("%m%d"))
+lst = []
+lst1 = ['114年5月16日 (星期五) | 名額：17', '114年5月23日 (星期五) | 名額：22', '114年5月30日 (星期五) | 名額：23', '114年6月6日 (星期五) | 名額：25']
+lst = lst
+lst2 = ['114年5月16日 (星期五) | 名額：17', '114年5月23日 (星期五) | 名額：22', '114年5月30日 (星期五) | 名額：23', '114年6月6日 (星期五) | 名額：25']
+print(lst1 == lst2)

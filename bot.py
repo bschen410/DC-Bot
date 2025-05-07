@@ -45,11 +45,28 @@ async def on_message(message):
 
 
 async def checkMotorData():
+    ori_result_1 = []
+    ori_result_2 = []
     while True:
-        result, location = await motor.getData(40, 46)
-        if result:
+        result, location = await motor.getData(40, 41) # 板橋
+        if result and result != ori_result_1:
             result = location + "\n" + "\n".join(result)
             await bot.get_channel(1299427050884694028).send(result)
+            ori_result_1 = result.deepcopy()
+        elif result == [] and result != ori_result_1:
+            result = location + "\n的名額被搶光囉。"
+            await bot.get_channel(1299427050884694028).send(result)
+            ori_result_1 = []
+        #
+        result, location = await motor.getData(20, 25) # 基隆
+        if result and result != ori_result_2:
+            result = location + "\n" + "\n".join(result)
+            await bot.get_channel(1299427050884694028).send(result)
+            ori_result_2 = result.deepcopy()
+        elif result == [] and result != ori_result_2:
+            result = location + "\n的名額被搶光囉。"
+            await bot.get_channel(1299427050884694028).send(result)
+            ori_result_2 = []
         await asyncio.sleep(60)
 
 
@@ -67,6 +84,13 @@ async def check_motor_data(interaction: discord.Interaction):
             location + "\n目前沒有可用的資料。"
         )
 
+@bot.tree.command(name="hbd_urfy", description="彳亍")
+async def hbd(interaction: discord.Interaction):
+    user_id = 837032608897564723
+    channel_id = 1290632541094674477
+    channel = bot.get_channel(channel_id)
+    if channel:
+        await channel.send(":x: :wind_blowing_face: :x: :wind_blowing_face: ")
 
 # name指令顯示名稱，description指令顯示敘述
 # name的名稱，中、英文皆可，但不能使用大寫英文

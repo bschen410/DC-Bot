@@ -50,3 +50,6 @@ async def getData(opt1, opt2):
     else:
         print(f'FROM motor.py --> result not found')
         return result, ""
+
+result, loc = asyncio.run(getData(20, 26))
+print(result)
