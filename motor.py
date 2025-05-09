@@ -33,7 +33,7 @@ async def getData(opt1, opt2):
     data = []
     for row in rows:
         cols = row.find_all("td")
-        if len(cols) >= 3 and "上午場次" in cols[1].text.strip():  # 確保有足夠的列
+        if len(cols) >= 3 and "本場次為初考生" in cols[1].text.strip():  # 確保有足夠的列
             date = cols[0].text.strip()
             state = cols[2].text.strip()
             data.append({"date": date, "state": state})
@@ -43,13 +43,13 @@ async def getData(opt1, opt2):
         if lst["state"] != "額滿":
             result.append(lst["date"] + " | 名額：" + lst["state"])
     # print(result)
+    loc = soup.select_one(f'option[value="{opt2}"]').text.strip()
+    current_time = datetime.datetime.now()
     if result:
-        loc = soup.select_one(f'option[value="{opt2}"]').text.strip()
-        print(f'FROM motor.py --> result: {result} at {loc}')
+        print(f'[{current_time}] FROM motor.py --> result: {result} at {loc}')
         return result, loc
     else:
-        print(f'FROM motor.py --> result not found')
-        return result, ""
+        print(f'[{current_time}] FROM motor.py --> result not found')
+        return result, loc
 
-result, loc = asyncio.run(getData(20, 26))
-print(result)
+asyncio.run(getData(40, 41))
