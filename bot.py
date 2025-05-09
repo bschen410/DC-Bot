@@ -89,14 +89,6 @@ async def check_motor_data(interaction: discord.Interaction):
         await interaction.followup.send(location + "\n目前沒有可用的資料。")
 
 
-@bot.tree.command(name="dm_test", description="彳亍")
-async def dm(interaction: discord.Interaction):
-    user_me = await bot.fetch_user(694186135576117269)
-    user_urfy = await bot.fetch_user(837032608897564723)
-    await user_me.send("Testing DC function")
-    await user_urfy.send("Testing DC function")
-
-
 # name指令顯示名稱，description指令顯示敘述
 # name的名稱，中、英文皆可，但不能使用大寫英文
 @bot.tree.command(name="hello", description="Hello, world!")
