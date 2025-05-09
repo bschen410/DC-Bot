@@ -1,3 +1,8 @@
 {
     "DC_TOKEN": "YOUR_DISCORD_BOT_TOKEN"
+    "motor_data": {
+        "WEB_OPT_ID": [[OPT1, OPT2]],
+        "DM_USER_ID": [USER_ID_LIST],
+        "CHANNEL_ID": JUST_CHANNEL_ID
+    }
 }
