@@ -68,7 +68,7 @@ async def checkMotorData():
                     await bot.fetch_user(user).send(msg)
                 ori_result[i] = result
             elif result == [] and result != ori_result[i]:
-                msg = location + "的名額被搶光囉 :cry:"
+                msg = f'{location}的名額被搶光囉 :cry: \n-# Timestamp: {datetime.datetime.now()}'
                 # await bot.get_channel(channel_id).send(msg)
                 for user in user_id:
                     await bot.fetch_user(user).send(msg)
