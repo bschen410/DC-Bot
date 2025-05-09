@@ -16,23 +16,6 @@ Messy code for a Python-based Discord bot.
 - 沒了，有夠廢 ==
 
 
-##  Project Structure
-
-```sh
-└── DC-Bot/
-    ├── LICENSE
-    ├── bot.py
-    ├── config.json.example
-    ├── gable.py
-    ├── motor.py
-    ├── motor_playwright.py
-    ├── requirements.txt
-    ├── tempCodeRunnerFile.py
-    ├── test.html
-    └── test.py
-```
-
-
 ##  Getting Started
 
 ###  Prerequisites
