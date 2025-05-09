@@ -7,7 +7,6 @@
 
 Messy code for a Python-based Discord bot.
 
----
 
 ##  Features
 
@@ -16,7 +15,6 @@ Messy code for a Python-based Discord bot.
 - 抓取台灣監理站網站的機車考照名額
 - 沒了，有夠廢 ==
 
----
 
 ##  Project Structure
 
@@ -35,7 +33,6 @@ Messy code for a Python-based Discord bot.
 ```
 
 
----
 ##  Getting Started
 
 ###  Prerequisites
@@ -92,13 +89,11 @@ Run the test suite using the following command:
 ```
 
 
----
 ##  Project Roadmap
 
 - [ ] **`Task 1`**: 窩也不知道
 - [ ] **`Task 2`**: 反正前面的選取方塊永遠都不會打勾
 
----
 
 ##  Contributing
 
@@ -141,7 +136,6 @@ Run the test suite using the following command:
 </p>
 </details>
 
----
 
 ##  License
 
