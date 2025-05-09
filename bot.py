@@ -5,7 +5,7 @@ import motor
 
 
 with open("config.json") as cf:
-    config = json.load(cf)
+    Config = json.load(cf)
 
 
 # 使用 commands.Bot 並設置應用程式 ID
@@ -53,38 +53,26 @@ async def test():
 
 
 async def checkMotorData():
-    ori_result_1 = []
-    ori_result_2 = []
-    user_me = await bot.fetch_user(694186135576117269)
-    user_urfy = await bot.fetch_user(837032608897564723)
+    n = len(Config["WEB_OPT_ID"]) # 有幾個地點要爬
+    web_opt = Config["WEB_OPT_ID"]
+    user_id = Config["DC_USER_ID"]
+    channel_id = Config["DC_CHANNEL_ID"]
+    ori_result = [[] for _ in range(n)]
     while True:
-        result, location = await motor.getData(40, 41)  # 板橋
-        if result and result != ori_result_1:
-            msg = f'地點：{location}\n{"\n".join(result)}\n-# Timestamp: {datetime.datetime.now()}'
-            # await bot.get_channel(1299427050884694028).send(msg)
-            await user_me.send(msg)
-            await user_urfy.send(msg)
-            ori_result_1 = result
-        elif result == [] and result != ori_result_1:
-            msg = location + "的名額被搶光囉 :cry:"
-            # await bot.get_channel(1299427050884694028).send(msg)
-            await user_me.send(msg)
-            await user_urfy.send(msg)
-            ori_result_1 = []
-        #
-        result, location = await motor.getData(20, 25)  # 基隆
-        if result and result != ori_result_2:
-            msg = f'地點：{location}\n{"\n".join(result)}\n-# Timestamp: {datetime.datetime.now()}'
-            # await bot.get_channel(1299427050884694028).send(msg)
-            await user_me.send(msg)
-            await user_urfy.send(msg)
-            ori_result_2 = result
-        elif result == [] and result != ori_result_2:
-            msg = location + "的名額被搶光囉 :cry:"
-            # await bot.get_channel(1299427050884694028).send(msg)
-            await user_me.send(msg)
-            await user_urfy.send(msg)
-            ori_result_2 = []
+        for i in range(n):
+            result, location = await motor.getData(web_opt[i][0], web_opt[i][1])
+            if result and result != ori_result[i]:
+                msg = f'地點：{location}\n{"\n".join(result)}\n-# Timestamp: {datetime.datetime.now()}'
+                # await bot.get_channel(channel_id).send(msg)
+                for user in user_id:
+                    await bot.fetch_user(user).send(msg)
+                ori_result[i] = result
+            elif result == [] and result != ori_result[i]:
+                msg = location + "的名額被搶光囉 :cry:"
+                # await bot.get_channel(channel_id).send(msg)
+                for user in user_id:
+                    await bot.fetch_user(user).send(msg)
+                ori_result[i] = []
         await asyncio.sleep(30)
 
 
@@ -117,4 +105,4 @@ async def hello(interaction: discord.Interaction):
     await interaction.response.send_message("Hello, world!")
 
 
-bot.run(config["DC_TOKEN"])
+bot.run(Config["DC_TOKEN"])
