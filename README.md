@@ -3,8 +3,6 @@
 </p> -->
 <p align="center"><h1 align="left">DC-BOT</h1></p>
 
----
-
 ##  Overview
 
 Messy code for a Python-based Discord bot.
