@@ -53,10 +53,10 @@ async def test():
 
 
 async def checkMotorData():
-    n = len(Config["WEB_OPT_ID"]) # 有幾個地點要爬
-    web_opt = Config["WEB_OPT_ID"]
-    user_id = Config["DC_USER_ID"]
-    channel_id = Config["DC_CHANNEL_ID"]
+    n = len(Config["motor_data"]["WEB_OPT_ID"]) # 有幾個地點要爬
+    web_opt = Config["motor_data"]["WEB_OPT_ID"]
+    user_id = Config["motor_data"]["DM_USER_ID"]
+    channel_id = Config["motor_data"]["CHANNEL_ID"]
     ori_result = [[] for _ in range(n)]
     while True:
         for i in range(n):
@@ -65,13 +65,21 @@ async def checkMotorData():
                 msg = f'地點：{location}\n{"\n".join(result)}\n-# Timestamp: {datetime.datetime.now()}'
                 # await bot.get_channel(channel_id).send(msg)
                 for user in user_id:
-                    await bot.fetch_user(user).send(msg)
+                    fetched_user = await bot.fetch_user(user)
+                    if fetched_user:
+                        await fetched_user.send(msg)
+                    else:
+                        print(f"無法找到用戶 ID：{user}")
                 ori_result[i] = result
             elif result == [] and result != ori_result[i]:
                 msg = f'{location}的名額被搶光囉 :cry: \n-# Timestamp: {datetime.datetime.now()}'
                 # await bot.get_channel(channel_id).send(msg)
                 for user in user_id:
-                    await bot.fetch_user(user).send(msg)
+                    fetched_user = await bot.fetch_user(user)
+                    if fetched_user:
+                        await fetched_user.send(msg)
+                    else:
+                        print(f"無法找到用戶 ID：{user}")
                 ori_result[i] = []
         await asyncio.sleep(30)
 
